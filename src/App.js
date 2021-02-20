@@ -16,7 +16,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -52,8 +52,8 @@ const App = () => {
     <div>
       <h2>log in to application</h2>
       <form onSubmit={loginHandler}>
-        username<input type="text" value={username} name="Username" onChange={ ({target}) => setUsername(target.value)}/>
-        password<input type="password" value={password} name="Password" onChange={ ({target}) => setPassword(target.value) } />
+        username<input type="text" value={username} name="Username" onChange={ ({ target }) => setUsername(target.value)}/>
+        password<input type="password" value={password} name="Password" onChange={ ({ target }) => setPassword(target.value) } />
         <button type='submit'>login</button>
       </form>
     </div>
@@ -74,7 +74,7 @@ const App = () => {
       <BlogForm createBlog={createBlog}/>
     </Toggleable>
   )
-    
+
   const blogList = () => (
     <div>
       <h2>blogs</h2>
@@ -92,9 +92,9 @@ const App = () => {
 
   return (
     <div>
-      { user === null 
-      ? loginForm() 
-      : blogList()}
+      { user === null
+        ? loginForm()
+        : blogList()}
     </div>
   )
 }

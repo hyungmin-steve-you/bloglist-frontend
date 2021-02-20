@@ -9,16 +9,16 @@ const Toggleable = props => {
 
   return (
     <div>
-    {show === false
-    ? <div>
-        <button onClick={handleClick}>{props.buttonLabel}</button>
-      </div>
-    :
-      <div>
-        {props.children}
-        <button onClick={handleClick}>Hide</button>
-      </div>
-    }
+      {show === false
+        ? <div>
+          <button onClick={handleClick}>{props.buttonLabel}</button>
+        </div>
+        :
+        <div>
+          {props.children}
+          <button onClick={handleClick}>Hide</button>
+        </div>
+      }
     </div>
   )
 }
