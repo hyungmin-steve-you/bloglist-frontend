@@ -13,9 +13,7 @@ const BlogForm = ({ createBlog }) => {
       url
     }
     await createBlog(blog)
-    console.log('after create blog')
     setTitle('')
-    console.log('after set title')
     setAuthor('')
     setUrl('')
   }

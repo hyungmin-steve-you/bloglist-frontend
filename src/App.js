@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
-import Toggleable from './components/Toggleable'
+import Togglable from './components/Togglable'
 import BlogForm from './components/BlogForm'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -10,6 +10,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const blogFormRef = useRef()
 
   const userStorage = 'userStorage'
 
@@ -61,6 +62,7 @@ const App = () => {
 
 
   const createBlog = async (blogObject) => {
+    blogFormRef.current.handleClick()
     try {
       const newBlog = await blogService.create(blogObject)
       setBlogs(blogs.concat(newBlog))
@@ -70,9 +72,9 @@ const App = () => {
   }
 
   const createBlogForm = () => (
-    <Toggleable buttonLabel="new blog">
+    <Togglable buttonLabel="new blog" ref={blogFormRef}>
       <BlogForm createBlog={createBlog}/>
-    </Toggleable>
+    </Togglable>
   )
 
   const blogList = () => (
