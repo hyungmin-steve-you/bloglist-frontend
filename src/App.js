@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import Toggleable from './components/Toggleable'
+import BlogForm from './components/BlogForm'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -20,7 +22,9 @@ const App = () => {
   useEffect(() => {
     const user = window.localStorage.getItem(userStorage)
     if (user) {
-      setUser(JSON.parse(user))
+      const parsedUser = JSON.parse(user)
+      setUser(parsedUser)
+      blogService.setToken(parsedUser.token)
     }
   }, [])
 
@@ -55,6 +59,22 @@ const App = () => {
     </div>
   )
 
+
+  const createBlog = async (blogObject) => {
+    try {
+      const newBlog = await blogService.create(blogObject)
+      setBlogs(blogs.concat(newBlog))
+    } catch (err) {
+      console.log('something went wrong while creating blog: ', err)
+    }
+  }
+
+  const createBlogForm = () => (
+    <Toggleable buttonLabel="new blog">
+      <BlogForm createBlog={createBlog}/>
+    </Toggleable>
+  )
+    
   const blogList = () => (
     <div>
       <h2>blogs</h2>
@@ -66,6 +86,7 @@ const App = () => {
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
+      {createBlogForm()}
     </div>
   )
 
